@@ -22,8 +22,8 @@ func Init(h, s string) {
 	hostname = h
 	cdsname = s
 
-	heartbeatTicker := time.NewTicker(2 * time.Second).C
-	awolTicker := time.NewTicker(time.Second).C
+	heartbeatTicker := time.NewTicker(1 * time.Second).C
+	awolTicker := time.NewTicker(3 * time.Second).C
 
 	for {
 		_db := database.DB()
@@ -53,7 +53,6 @@ func IsLeader() (bool, error) {
 }
 
 func heartbeat() error {
-	time.Sleep(1 * time.Second)
 	_db := database.DB()
 	if _db == nil {
 		return fmt.Errorf("Database unavailable")
@@ -84,7 +83,6 @@ func heartbeat() error {
 
 func electionRoutine() {
 	for {
-		time.Sleep(1 * time.Second)
 		_db := database.DB()
 		if _db == nil {
 			continue
